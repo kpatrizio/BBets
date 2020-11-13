@@ -120,16 +120,16 @@ The amount of money Dr. J would have to pay out to be a fair odds bet, would be.
 
 <!--Explain and display your method of coming up with a 95% confidence interval of  professor Brownlows winnings (or losings)-->
 
-# numbe of students for a fair bet
+# number of students for a fair bet
 
 ```{r}
 results=vector("numeric")
 for(j in 1:1000){
 bank=0
 for(i in 1:637){
-  class=sample(daysYEAR,20,replace=TRUE)
+  class=sample(daysYEAR,33,replace=TRUE)
   n=length(unique(class))
-if(n==20)bank=bank-3.5
+if(n==33)bank=bank-3.5
   else bank=bank+1
 }
 results[j]=bank
@@ -137,7 +137,6 @@ results[j]=bank
 sortRESULTS=sort(results)
 lcl=sortRESULTS[25]
 ucl=sortRESULTS[975]
-
 hist(results)
 ```
 
