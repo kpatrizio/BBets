@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 require(tidyverse)
 require(tigerstats)
 require(knitr)
+daysYEAR=1:365
 ```
 ### `r as.character(Sys.Date())`
 
@@ -37,42 +38,36 @@ There are 3 questions and there should be at least 3 separate commits, at least 
 
 We will solve this problem by re-sampling. We will set up days of the year, take a random sample of 35,  and see if two or more have the same birthday. 
 
-```{r}
-daysYEAR=1:365
-bDAYS=sample(daysYEAR,35,replace=TRUE)
-sort(bDAYS)
-length(unique(bDAYS))
-```
-
-```{r}
-results=vector("numeric")
-for(j in 1:1000){
-bank=0
-for(i in 1:637){
-  class=sample(daysYEAR,35,replace=TRUE)
-  n=length(unique(class))
-if(n==35)bank=bank-2
-  else bank=bank+1
-}
-results[j]=bank
-}
-hist(results)
-```
 
 
-# Profit Estimate
 
 
-```{r}
-fav_stats(results)
-```
 
-The expected amt of money is `r mean(results)
+
+
+
+
+
+
+
+
 
 <!--Explain and display the results of your method of coming up with the estimate of professor Brownlow's betting profits!-->
 
 
-# Confidence interval of Brownlows earning
+
+
+
+<!--Explain and display your method of coming up with a 95% confidence interval of  professor Brownlows winnings (or losings)-->
+
+
+
+
+
+
+
+
+### 1. What are the fair odds for a bet on matching birthdays in a 35 person class.
 
 ```{r}
 results=vector("numeric")
@@ -86,39 +81,11 @@ if(n==35)bank=bank-2
 }
 results[j]=bank
 }
-sortRESULTS=sort(results)
-lcl=sortRESULTS[25]
-ucl=sortRESULTS[975]
-
-hist(results)
-```
-lower confidence limit= `r lcl`
-upper confidence limit= `r ucl`
-
-# fair odds for a bet  
-```{r}
-results=vector("numeric")
-for(j in 1:1000){
-bank=0
-for(i in 1:637){
-  class=sample(daysYEAR,35,replace=TRUE)
-  n=length(unique(class))
-if(n==35)bank=bank-3.5
-  else bank=bank+1
-}
-results[j]=bank
-}
-sortRESULTS=sort(results)
-lcl=sortRESULTS[25]
-ucl=sortRESULTS[975]
-
 hist(results)
 ```
 
-The amount of money Dr. J would have to pay out to be a fair odds bet, would be...
 
-
-<!--Explain and display your method of coming up with a 95% confidence interval of  professor Brownlows winnings (or losings)-->
+### 2. For what size class is a 2:1 odds bet fair.
 
 # number of students for a fair bet
 
@@ -127,9 +94,9 @@ results=vector("numeric")
 for(j in 1:1000){
 bank=0
 for(i in 1:637){
-  class=sample(daysYEAR,33,replace=TRUE)
+  class=sample(daysYEAR,28,replace=TRUE)
   n=length(unique(class))
-if(n==33)bank=bank-3.5
+if(n==33)bank=bank-2
   else bank=bank+1
 }
 results[j]=bank
@@ -142,8 +109,61 @@ hist(results)
 
 
 
+### 3. How much money would Brownlow be expected to end up with if the bets went as described. 
 
-# Discussion and Conclusion
 
-<!--Discussion and conclusion here.  If professor Brownlow is consistantly making or losing money how could he change his payout so that his profits center on zero?  Also discuss what size his class should be in order to have his current scheme balance at zero profit.!-->
+```{r}
+daysYEAR=1:365
+```
 
+
+
+```{r}
+results=vector("numeric")
+for(j in 1:1000){
+bank=0
+for(i in 1:637){
+  class=sample(daysYEAR,35,replace=TRUE)
+  n=length(unique(class))
+if(n==35)bank=bank-4.25
+  else bank=bank+1
+}
+results[j]=bank
+}
+
+hist(results)
+```
+
+ 
+
+```{r}
+results=vector("numeric")
+for(j in 1:1000){
+bank=0
+for(i in 1:637){
+  class=sample(daysYEAR,35,replace=TRUE)
+  n=length(unique(class))
+if(n==35)bank=bank-4.25
+  else bank=bank+1
+}
+results[j]=bank
+}
+sortRESULTS=sort(results)
+lcl=sortRESULTS[25]
+ucl=sortRESULTS[975]
+
+hist(results)
+```
+
+The amount of money Dr. J would have to pay out to be a fair odds bet, 
+would be...$4.25.
+
+
+
+
+# Profit Estimate
+
+
+```{r}
+fav_stats(results)
+```
